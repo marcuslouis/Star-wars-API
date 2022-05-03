@@ -62,10 +62,20 @@ def handle_users():
     user_list = list(map(lambda x: x.serialize(),user))
     return jsonify(user_list), 200
 
-@app.route('/')
+@app.route('/users/favorites', methods=['GET'])
+def handle_favorites():
+
+    favorites  = Favorites.query.all()
+    favorites_list = list(map(lambda x: x.serialize(),favorites))
+    return jsonify(favorites_list), 200
+
+@app.route('/favorites/people/<int:planet_id>', methods=['POST'])
+def handle_favorites_planets():
+    planets = Planets.query.get(planets_id)
+
 
 
 # this only runs if `$ python src/main.py` is executed
-if __name__ == '__main__':
-    PORT = int(os.environ.get('PORT', 3000))
-    app.run(host='0.0.0.0', port=PORT, debug=False)
+    if __name__ == '__main__':
+        PORT = int(os.environ.get('PORT', 3000))
+        app.run(host='0.0.0.0', port=PORT, debug=False)
