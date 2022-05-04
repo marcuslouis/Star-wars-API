@@ -42,6 +42,14 @@ def handle_people():
 def handle_onePerson():
     people = People.query.get(people_id)
 
+@app.route('/people', methods=['POST'])
+def create_people():
+    request_body = request.get_json()
+    new_people = People(email=request_body['email'], password=request_body['password'], is_active=request_body['is_active'])
+    db.session.add(new_people)
+    db.session.commit()
+    return f"The new people {request_body['email']} was created successfully", 200
+
 
 @app.route('/planets', methods=['GET'])
 def handle_planets():
@@ -55,19 +63,29 @@ def handle_planets():
 def handle_onePlanets():
     planets = Planets.query.get(planets_id)
 
-@app.route('/users', methods=['GET'])
+
+@app.route('/planets', methods=['POST'])
+def create_planets():
+    request_body = request.get_json()
+    new_planets = Planets(email=request_body['email'], password=request_body['password'], is_active=request_body['is_active'])
+    db.session.add(new_planets)
+    db.session.commit()
+    return f"The new people {request_body['email']} was created successfully", 200
+
+@app.route('/characters', methods=['GET'])
 def handle_users():
 
     users  = Users.query.all()
     user_list = list(map(lambda x: x.serialize(),user))
     return jsonify(user_list), 200
 
-@app.route('/users/favorites', methods=['GET'])
-def handle_favorites():
-
-    favorites  = Favorites.query.all()
-    favorites_list = list(map(lambda x: x.serialize(),favorites))
-    return jsonify(favorites_list), 200
+@app.route('/characters', methods=['POST'])
+def create_characters():
+    request_body = request.get_json()
+    new_character = characters(email=request_body['email'], password=request_body['password'], is_active=request_body['is_active'])
+    db.session.add(new_characters)
+    db.session.commit()
+    return f"The new people {request_body['email']} was created successfully", 200
 
 @app.route('/favorites/people/<int:planet_id>', methods=['POST'])
 def handle_favorites_planets():

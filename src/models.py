@@ -53,13 +53,13 @@ class Characters(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     Characters_name = db.Column(db.String(120), unique=True, nullable=False)
     gender = db.Column(db.String(80), unique=False, nullable=False)
-    movies = db.Column(db.String(), unique=False, nullable=False)
+    movies = db.Column(db.String(80), unique=False, nullable=False)
     eye_color = db.Column(db.String(80), unique=False, nullable=False)
     height = db.Column(db.Integer, unique=False, nullable=False)
     hair_color = db.Column(db.String(80), unique=False, nullable=False)
     birth_year = db.Column(db.Integer, unique=False, nullable=False)
     mass = db.Column(db.Integer, unique=False, nullable=False)
-    homeworld = db.Column(db.String(), unique=False, nullable=False)
+    homeworld = db.Column(db.String(80), unique=False, nullable=False)
 
     def __repr__(self):
         return '<Characters %r>' % self.username
