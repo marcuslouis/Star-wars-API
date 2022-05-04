@@ -9,6 +9,7 @@ ports:
       visibility: public
 tasks:
     - init: |
+        pipenv install  &&
         pipenv run upgrade;
       command: >
         pipenv run start;
