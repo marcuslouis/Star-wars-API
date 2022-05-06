@@ -41,6 +41,7 @@ def handle_people():
 @app.route('/people/<int:people_id>', methods=['GET'])
 def handle_onePerson():
     people = People.query.get(people_id)
+    return jsonify(people.serialize)
 
 @app.route('/people', methods=['POST'])
 def create_people():
@@ -62,6 +63,7 @@ def handle_planets():
 @app.route('/planets/<int:planets_id>', methods=['GET'])
 def handle_onePlanets():
     planets = Planets.query.get(planets_id)
+    return jsonify(planets.serialize)
 
 
 @app.route('/planets', methods=['POST'])
@@ -90,7 +92,7 @@ def create_characters():
 @app.route('/favorites/planets/<int:planets_id>', methods=['POST'])
 def handle_favorites_planets():
     planets = Planets.query.get(planets_id)
-    return jsonify(planets_id)
+    return jsonify(planets.serialize)
 
 @app.route('/favorites/people/<int:people_id>', methods=['DELETE'])
 def handle_delete(people_id):
