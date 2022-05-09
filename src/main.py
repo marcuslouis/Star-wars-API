@@ -54,13 +54,12 @@ def create_people():
 
 @app.route('/people', methods=['DELETE'])
 def delete_people():
-    request_body = request.get_json()
-    new_people = People(email=request_body['email'], password=request_body['password'], is_active=request_body['is_active'])
-    db.session.add(new_people)
+    people = People.query.get(people_id)
+    if people is None:
+        raise APIException('User not found', status_code=404)
+    db.session.delete(people)
     db.session.commit()
-     return f"The new people {request_body['email']} was deleted successfully", 200
-
-
+    return jsonify(people)
 
 
 @app.route('/planets', methods=['GET'])
@@ -88,11 +87,12 @@ def create_planets():
 
 @app.route('/planets', methods=['DELETE'])
 def create_planets():
-    request_body = request.get_json()
-    new_planets = Planets(planet_name=request_body['planet_name'], diameter=request_body['diameter'], rotation_period=request_body['rotation_period'],gravity=request_body['gravity'], population=request_body['population'], climate=request_body['climate'],terrian=request_body['terrian'], surface_water=request_body['surface_water'])
-    db.session.add(new_planets)
+     planets = Planets.query.get(planets_id)
+    if planets is None:
+        raise APIException('User not found', status_code=404)
+    db.session.delete(planets)
     db.session.commit()
-    return f"The new planet {request_body['planet_name']} was deleted successfully", 200
+    return jsonify(planets)
 
 @app.route('/characters', methods=['GET'])
 def handle_characters():
@@ -118,11 +118,12 @@ def create_characters():
 
 @app.route('/characters', methods=['DELETE'])
 def create_characters():
-    request_body = request.get_json()
-    new_character = Characters(Characters_name=request_body['Characters_name'], gender=request_body['gender'], movies=request_body['movies'],eye_color=request_body['eye_color'], height=request_body['height'], hair_color=request_body['hair_color'], birth_year=request_body['birth_year'], mass=request_body['mass'], homeworld=request_body['homeworld'])
-    db.session.add(new_characters)
+    character = Characters.query.get(characters_id)
+    if character is None:
+        raise APIException('User not found', status_code=404)
+    db.session.delete(character)
     db.session.commit()
-    return f"The new character {request_body['Characters_name']} was deleted successfully", 200
+    return jsonify(character)
 
 
 # this only runs if `$ python src/main.py` is executed
